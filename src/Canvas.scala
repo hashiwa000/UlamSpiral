@@ -7,18 +7,22 @@ import java.awt.Graphics
 
 import scala.collection.mutable.ListBuffer
 
+/**
+ * 螺旋を描画するクラス
+ * @auther Masatoshi TAKAMIYA
+ */
 class Canvas extends JFrame {
 
-	val base_x = 50
-	val base_y = 50
-	val default_w = 500
-	val default_h = 500
+	val baseX = 50		// 模様の右上のx座標
+	val baseY = 50		// 模様の右上のy座標
+	val defaultW = 500	// ウィンドウの幅
+	val defaultH = 500	// ウィンドウの高さ
 
-	var lss: List[List[Int]] = null
-	var f: Int=>Boolean = isPrime
-	var cw = 1
-	var ch = 1
-	var color = Color.black
+	var lss: List[List[Int]] = null	// 螺旋状となっている数字
+	var f: Int=>Boolean = isPrime	// 描画するかどうかを判別する関数
+	var cw = 1						// 描画する幅
+	var ch = 1						// 描画する高さ
+	var color = Color.black			// 描画する色
 
 	/**
 	 * Constructor
@@ -30,22 +34,25 @@ class Canvas extends JFrame {
 		getContentPane().setLayout(new java.awt.FlowLayout())
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
 		setTitle("View Frame")
-		setSize(default_w, default_h)
+		setSize(defaultW, defaultH)
 		setVisible(true)
 
 		repaint()
 	}
 	def this(index: Int) = this(create(index))
-	
+
+	/**
+	 * 
+	 */
 	def setNumber(n: Int) {
 		lss = create(n)
 //		repaint()
 	}
-	
+
 	override def paint(g: Graphics) {
 		paintPattern(g, f)
 	}
-	
+
 	private def paintPattern(g: Graphics, f: Int=>Boolean) = {
 		g setColor Color.white
 		g.fillRect(0, 0, getWidth, getHeight)
@@ -53,8 +60,8 @@ class Canvas extends JFrame {
 		g setColor color
 		for (wi <- 0 until lss.length ; hi <- 0 until lss(wi).length) {
 			if (f(lss(wi)(hi))) {
-				val x = wi * cw + base_x
-				val y = hi * ch + base_y
+				val x = wi * cw + baseX
+				val y = hi * ch + baseY
 				g fillRect (x, y, cw, cw)
 			}
 		}
