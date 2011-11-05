@@ -1,6 +1,8 @@
 import MyMath._
 
-
+/**
+ * 螺旋状の数字のリストを作成
+ */
 object Factory {
 	private def getHidariUe(x: Int): Int =
 		if (x == 1) 4
@@ -16,6 +18,11 @@ object Factory {
 	private def connectedList(left: Int, ls: List[Int], right: Int) =
 		(right :: (left :: ls).reverse).reverse
 
+	/**
+	 * 螺旋状の数字のリストを作成
+	 * @param index 螺旋の周回数
+	 * @return 整数のリスト
+	 */
 	def create(index: Int): List[List[Int]] =
 		if (index==1) List(List(4, 3), List(1, 2))
 		else {
